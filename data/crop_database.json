@@ -1,0 +1,324 @@
+{
+    "Maize": {
+
+        "scientific_name": "Zea mays",
+
+        "category": "Cereal",
+
+        "local_names": [
+            "Maize",
+            "Corn"
+        ],
+
+        "major_regions": [
+            "Kaduna",
+            "Benue",
+            "Niger",
+            "Kano",
+            "Plateau"
+        ],
+
+        "problems": [
+
+            {
+                "name": "Fall Armyworm",
+
+                "type": "Pest",
+
+                "symptoms": [
+                    "Irregular holes on leaves",
+                    "Damage around plant whorl",
+                    "Presence of caterpillar larvae"
+                ],
+
+                "cause": "Infestation by Spodoptera frugiperda",
+
+                "prevention": [
+                    "Regular field scouting",
+                    "Early planting",
+                    "Use resistant varieties"
+                ],
+
+                "management": [
+                    "Remove heavily damaged plants",
+                    "Encourage natural enemies",
+                    "Apply recommended insect management practices"
+                ]
+            },
+
+
+            {
+                "name": "Maize Streak Virus",
+
+                "type": "Disease",
+
+                "symptoms": [
+                    "Yellow streaks along leaves",
+                    "Stunted growth",
+                    "Poor grain development"
+                ],
+
+                "cause": "Virus transmitted by leafhoppers",
+
+                "prevention": [
+                    "Plant resistant varieties",
+                    "Control insect vectors"
+                ],
+
+                "management": [
+                    "Remove infected plants",
+                    "Use certified seeds"
+                ]
+            },
+
+
+            {
+                "name": "Nitrogen Deficiency",
+
+                "type": "Nutrient Disorder",
+
+                "symptoms": [
+                    "Yellowing of older leaves",
+                    "Poor plant growth",
+                    "Small ears"
+                ],
+
+                "cause": "Low nitrogen availability in soil",
+
+                "prevention": [
+                    "Maintain soil fertility",
+                    "Apply organic manure"
+                ],
+
+                "management": [
+                    "Apply appropriate nitrogen fertilizer",
+                    "Conduct soil testing"
+                ]
+            }
+
+        ]
+
+    },
+
+
+    "Rice": {
+
+        "scientific_name": "Oryza sativa",
+
+        "category": "Cereal",
+
+        "local_names": [
+            "Rice",
+            "Shinkafa"
+        ],
+
+        "major_regions": [
+            "Kebbi",
+            "Niger",
+            "Ebonyi",
+            "Benue"
+        ],
+
+        "problems": [
+
+            {
+                "name": "Rice Blast",
+
+                "type": "Disease",
+
+                "symptoms": [
+                    "Diamond-shaped lesions on leaves",
+                    "Poor grain filling",
+                    "Neck infection"
+                ],
+
+                "cause": "Fungus Magnaporthe oryzae",
+
+                "prevention": [
+                    "Use resistant varieties",
+                    "Avoid excessive nitrogen application"
+                ],
+
+                "management": [
+                    "Apply recommended fungicides",
+                    "Maintain proper field spacing"
+                ]
+            },
+
+
+            {
+                "name": "Rice Stem Borer",
+
+                "type": "Pest",
+
+                "symptoms": [
+                    "Dead central shoots",
+                    "Whiteheads in mature plants",
+                    "Reduced yield"
+                ],
+
+                "cause": "Stem borer insect infestation",
+
+                "prevention": [
+                    "Destroy crop residues",
+                    "Practice field sanitation"
+                ],
+
+                "management": [
+                    "Use integrated pest management",
+                    "Apply approved insect control methods"
+                ]
+            }
+
+        ]
+
+    },
+
+
+    "Sorghum": {
+
+        "scientific_name": "Sorghum bicolor",
+
+        "category": "Cereal",
+
+        "local_names": [
+            "Sorghum",
+            "Guinea corn"
+        ],
+
+        "major_regions": [
+            "Kano",
+            "Kaduna",
+            "Sokoto",
+            "Katsina"
+        ],
+
+        "problems": [
+
+            {
+                "name": "Sorghum Anthracnose",
+
+                "type": "Disease",
+
+                "symptoms": [
+                    "Dark spots on leaves",
+                    "Leaf drying",
+                    "Reduced grain production"
+                ],
+
+                "cause": "Fungal infection by Colletotrichum species",
+
+                "prevention": [
+                    "Use resistant varieties",
+                    "Remove infected residues"
+                ],
+
+                "management": [
+                    "Apply recommended fungicides",
+                    "Practice crop rotation"
+                ]
+            },
+
+
+            {
+                "name": "Bird Damage",
+
+                "type": "Pest",
+
+                "symptoms": [
+                    "Missing grains",
+                    "Damaged heads",
+                    "Yield reduction"
+                ],
+
+                "cause": "Bird feeding during grain maturity",
+
+                "prevention": [
+                    "Early harvesting",
+                    "Bird scaring methods"
+                ],
+
+                "management": [
+                    "Use protective methods during maturity"
+                ]
+            }
+
+        ]
+
+    },
+
+
+    "Millet": {
+
+        "scientific_name": "Pennisetum glaucum",
+
+        "category": "Cereal",
+
+        "local_names": [
+            "Pearl millet",
+            "Gero"
+        ],
+
+        "major_regions": [
+            "Kano",
+            "Borno",
+            "Yobe",
+            "Sokoto"
+        ],
+
+        "problems": [
+
+            {
+                "name": "Downy Mildew",
+
+                "type": "Disease",
+
+                "symptoms": [
+                    "Yellowing leaves",
+                    "White fungal growth",
+                    "Poor panicle formation"
+                ],
+
+                "cause": "Fungal-like pathogen infection",
+
+                "prevention": [
+                    "Plant resistant varieties",
+                    "Use healthy seeds"
+                ],
+
+                "management": [
+                    "Remove infected plants",
+                    "Apply appropriate treatments"
+                ]
+            },
+
+
+            {
+                "name": "Striga Infestation",
+
+                "type": "Weed",
+
+                "symptoms": [
+                    "Poor crop growth",
+                    "Purple flowering weeds around plants",
+                    "Reduced yield"
+                ],
+
+                "cause": "Parasitic weed competition",
+
+                "prevention": [
+                    "Crop rotation",
+                    "Use tolerant varieties"
+                ],
+
+                "management": [
+                    "Manual removal",
+                    "Improve soil fertility"
+                ]
+            }
+
+        ]
+
+    }
+
+}
