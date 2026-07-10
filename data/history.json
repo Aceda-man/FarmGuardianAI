@@ -1,0 +1,11 @@
+[
+    {
+        "date": "2026-07-11 00:00:21.877127",
+        "farmer": "Adeyemi",
+        "location": "kwara",
+        "crop": "Maize",
+        "problem": "My maize leaves have holes and insects are inside the plant",
+        "diagnosis": "Fall Armyworm",
+        "type": "Pest"
+    }
+]

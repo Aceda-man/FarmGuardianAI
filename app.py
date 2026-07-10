@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 
 from utils.helpers import analyze_crop_problem
+from utils.storage import save_diagnosis, load_history
 
 
 # -----------------------------
@@ -179,6 +180,14 @@ if st.button(
                 "Analysis completed"
             )
 
+            save_diagnosis(
+                farmer_name,
+                location,
+                crop,
+                description,
+                result
+            )
+
 
             st.header(
                 f"Possible Issue: {result['name']}"
@@ -244,7 +253,47 @@ if st.button(
             "Please describe the crop problem first."
         )
 
+st.divider()
 
+st.header("📊 Farm History")
+
+
+history = load_history()
+
+
+if history:
+
+    for item in history:
+
+        with st.expander(
+            f"{item['crop']} - {item['diagnosis']}"
+        ):
+
+            st.write(
+                "Farmer:",
+                item["farmer"]
+            )
+
+            st.write(
+                "Location:",
+                item["location"]
+            )
+
+            st.write(
+                "Problem:",
+                item["problem"]
+            )
+
+            st.write(
+                "Date:",
+                item["date"]
+            )
+
+else:
+
+    st.info(
+        "No previous diagnoses yet."
+    )
 
 # -----------------------------
 # Footer
