@@ -31,7 +31,7 @@ st.write(
     FarmGuardian AI helps smallholder farmers identify crop problems
     and receive practical agricultural recommendations.
 
-    Powered by agricultural knowledge + Gemma 4 intelligence.
+    Powered by agricultural knowledge + future Gemma 4 intelligence.
     """
 )
 
@@ -40,7 +40,7 @@ st.divider()
 
 
 # -----------------------------
-# Sidebar
+# Sidebar - Farmer Profile
 # -----------------------------
 
 with st.sidebar:
@@ -69,9 +69,10 @@ with st.sidebar:
 
     st.divider()
 
+
     st.info(
         """
-        Future Gemma 4 features:
+        Future Gemma 4 Features:
 
         • Image diagnosis
         • Voice assistant
@@ -81,219 +82,345 @@ with st.sidebar:
     )
 
 
+
 # -----------------------------
-# Main Diagnosis Section
+# Main Navigation
 # -----------------------------
 
-st.header("🔍 Crop Diagnosis")
-
-
-col1, col2 = st.columns(
-    2
+tab1, tab2, tab3, tab4 = st.tabs(
+    [
+        "🔍 Crop Diagnosis",
+        "📊 Farm History",
+        "🌦 Advisory",
+        "ℹ️ About"
+    ]
 )
 
 
-with col1:
 
-    crop = st.selectbox(
-        "Select Crop",
-        [
-            "Maize",
-            "Rice",
-            "Sorghum",
-            "Millet",
-            "Cassava",
-            "Yam",
-            "Sweet Potato",
-            "Cowpea",
-            "Groundnut",
-            "Soybean",
-            "Tomato",
-            "Pepper",
-            "Onion",
-            "Cocoa",
-            "Oil Palm",
-            "Ginger"
-        ]
-    )
+# =====================================================
+# TAB 1 - CROP DIAGNOSIS
+# =====================================================
+
+with tab1:
+
+    st.header("🔍 Crop Diagnosis")
 
 
-    description = st.text_area(
-        "Describe what you see on the crop",
-        placeholder=
-        "Example: My maize leaves have holes and insects are inside the plant"
-    )
+    col1, col2 = st.columns(2)
 
 
+    with col1:
 
-with col2:
+        crop = st.selectbox(
+            "Select Crop",
 
-    uploaded_image = st.file_uploader(
-        "Upload crop image",
-        type=[
-            "jpg",
-            "jpeg",
-            "png"
-        ]
-    )
-
-
-    if uploaded_image:
-
-        image = Image.open(
-            uploaded_image
+            [
+                "Maize",
+                "Rice",
+                "Sorghum",
+                "Millet",
+                "Cassava",
+                "Yam",
+                "Sweet Potato",
+                "Cowpea",
+                "Groundnut",
+                "Soybean",
+                "Tomato",
+                "Pepper",
+                "Onion",
+                "Cocoa",
+                "Oil Palm",
+                "Ginger"
+            ]
         )
 
-        st.image(
-            image,
-            caption="Uploaded Crop Image",
-            use_container_width=True
+
+        description = st.text_area(
+            "Describe what you see on the crop",
+
+            placeholder=
+            "Example: My maize leaves have holes and insects are inside the plant"
         )
 
 
 
-# -----------------------------
-# Analysis Button
-# -----------------------------
+    with col2:
 
-st.divider()
+        uploaded_image = st.file_uploader(
+            "Upload crop image",
 
-
-if st.button(
-    "🌱 Analyze Crop",
-    use_container_width=True
-):
-
-    if description:
-
-
-        result = analyze_crop_problem(
-            crop,
-            description
+            type=[
+                "jpg",
+                "jpeg",
+                "png"
+            ]
         )
 
 
-        if result:
+        if uploaded_image:
 
-
-            st.success(
-                "Analysis completed"
+            image = Image.open(
+                uploaded_image
             )
 
-            save_diagnosis(
-                farmer_name,
-                location,
+            st.image(
+                image,
+                caption="Uploaded Crop Image",
+                use_container_width=True
+            )
+
+
+
+    st.divider()
+
+
+    if st.button(
+        "🌱 Analyze Crop",
+        use_container_width=True
+    ):
+
+
+        if description:
+
+
+            result = analyze_crop_problem(
                 crop,
-                description,
-                result
+                description
             )
 
 
-            st.header(
-                f"Possible Issue: {result['name']}"
-            )
+            if result:
 
 
-            st.write(
-                "**Category:**",
-                result["type"]
-            )
-
-
-            st.subheader(
-                "Symptoms"
-            )
-
-            for symptom in result["symptoms"]:
-
-                st.write(
-                    "🔹",
-                    symptom
+                st.success(
+                    "Analysis completed"
                 )
 
 
-
-            st.subheader(
-                "Possible Cause"
-            )
-
-            st.write(
-                result["cause"]
-            )
-
+                save_diagnosis(
+                    farmer_name,
+                    location,
+                    crop,
+                    description,
+                    result
+                )
 
 
-            st.subheader(
-                "Recommended Management"
-            )
+                st.header(
+                    f"Possible Issue: {result['name']}"
+                )
 
-            for action in result["management"]:
 
                 st.write(
-                    "✅",
-                    action
+                    "**Category:**",
+                    result["type"]
+                )
+
+
+                st.subheader(
+                    "Symptoms"
+                )
+
+                for symptom in result["symptoms"]:
+
+                    st.write(
+                        "🔹",
+                        symptom
+                    )
+
+
+                st.subheader(
+                    "Possible Cause"
+                )
+
+                st.write(
+                    result["cause"]
+                )
+
+
+                st.subheader(
+                    "Recommended Management"
+                )
+
+                for action in result["management"]:
+
+                    st.write(
+                        "✅",
+                        action
+                    )
+
+
+            else:
+
+                st.warning(
+                    """
+                    No matching problem found.
+
+                    Gemma 4 integration will provide
+                    advanced reasoning in the final version.
+                    """
                 )
 
 
         else:
 
             st.warning(
-                """
-                No matching problem found.
-
-                Gemma 4 integration will provide
-                advanced reasoning in the final version.
-                """
+                "Please describe the crop problem first."
             )
+
+
+
+# =====================================================
+# TAB 2 - FARM HISTORY
+# =====================================================
+
+with tab2:
+
+    st.header(
+        "📊 Previous Farm Diagnoses"
+    )
+
+
+    history = load_history()
+
+
+    if history:
+
+
+        for item in history:
+
+
+            with st.expander(
+                f"{item['crop']} - {item['diagnosis']}"
+            ):
+
+
+                st.write(
+                    "👨🏾‍🌾 Farmer:",
+                    item["farmer"]
+                )
+
+
+                st.write(
+                    "📍 Location:",
+                    item["location"]
+                )
+
+
+                st.write(
+                    "Problem:",
+                    item["problem"]
+                )
+
+
+                st.write(
+                    "Date:",
+                    item["date"]
+                )
 
 
     else:
 
-        st.warning(
-            "Please describe the crop problem first."
+
+        st.info(
+            "No previous diagnoses yet."
         )
 
-st.divider()
-
-st.header("📊 Farm History")
 
 
-history = load_history()
+# =====================================================
+# TAB 3 - FARMING ADVISORY
+# =====================================================
+
+with tab3:
 
 
-if history:
+    st.header(
+        "🌦 Farming Advisory"
+    )
 
-    for item in history:
 
-        with st.expander(
-            f"{item['crop']} - {item['diagnosis']}"
-        ):
+    st.write(
+        """
+        Future Gemma 4 advisory features:
 
-            st.write(
-                "Farmer:",
-                item["farmer"]
-            )
+        🌱 Crop management advice
 
-            st.write(
-                "Location:",
-                item["location"]
-            )
+        🌧 Weather-based recommendations
 
-            st.write(
-                "Problem:",
-                item["problem"]
-            )
+        🐛 Pest outbreak alerts
 
-            st.write(
-                "Date:",
-                item["date"]
-            )
+        🌾 Fertilizer recommendations
 
-else:
+        📍 Region-specific farming guidance
+        """
+    )
+
+
+    region = st.selectbox(
+
+        "Select farming region",
+
+        [
+            "North West",
+            "North Central",
+            "South West",
+            "South East",
+            "South South"
+        ]
+
+    )
+
 
     st.info(
-        "No previous diagnoses yet."
+        f"""
+        Advisory region:
+
+        {region}
+
+        AI-powered recommendations will be added
+        through Gemma 4 integration.
+        """
     )
+
+
+
+# =====================================================
+# TAB 4 - ABOUT
+# =====================================================
+
+with tab4:
+
+
+    st.header(
+        "ℹ️ About FarmGuardian AI"
+    )
+
+
+    st.write(
+        """
+        FarmGuardian AI is an agricultural assistant
+        designed for Nigerian smallholder farmers.
+
+        It combines:
+
+        ✅ Agricultural knowledge
+
+        ✅ Crop diagnosis
+
+        ✅ Digital farm records
+
+        ✅ AI reasoning
+
+
+        Future versions will integrate Gemma 4
+        for multimodal crop understanding,
+        local languages, and offline intelligence.
+        """
+    )
+
+
 
 # -----------------------------
 # Footer
