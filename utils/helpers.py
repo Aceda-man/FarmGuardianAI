@@ -57,3 +57,25 @@ def analyze_crop_problem(crop, description):
 
 
     return results[0]["problem"]
+
+def get_crop_count():
+
+    database = load_crop_database()
+
+    return len(database)
+
+
+
+def get_problem_count():
+
+    database = load_crop_database()
+
+    total = 0
+
+    for crop in database.values():
+
+        total += len(
+            crop["problems"]
+        )
+
+    return total

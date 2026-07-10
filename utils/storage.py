@@ -1,67 +1,57 @@
 import json
 import os
-from datetime import datetime
-
-
-HISTORY_FILE = "data/history.json"
 
 
 
 def save_diagnosis(
-    farmer,
-    location,
+    farmer_id,
     crop,
     problem,
     result
 ):
 
+    folder = "data/farmers"
+
+
+    os.makedirs(
+        folder,
+        exist_ok=True
+    )
+
+
+    file_path = (
+        f"{folder}/{farmer_id}.json"
+    )
+
+
     record = {
 
-        "date":
-        str(datetime.now()),
+        "crop": crop,
 
-        "farmer":
-        farmer,
+        "problem": problem,
 
-        "location":
-        location,
+        "diagnosis": result["name"],
 
-        "crop":
-        crop,
-
-        "problem":
-        problem,
-
-        "diagnosis":
-        result["name"],
-
-        "type":
-        result["type"]
+        "type": result["type"]
 
     }
 
 
-    if os.path.exists(HISTORY_FILE):
+    if os.path.exists(file_path):
 
-        with open(
-            HISTORY_FILE,
-            "r"
-        ) as file:
+        with open(file_path,"r") as file:
 
-            history = json.load(file)
+            history=json.load(file)
 
     else:
 
-        history = []
+        history=[]
 
 
     history.append(record)
 
 
-    with open(
-        HISTORY_FILE,
-        "w"
-    ) as file:
+    with open(file_path,"w") as file:
 
         json.dump(
             history,
@@ -71,14 +61,18 @@ def save_diagnosis(
 
 
 
-def load_history():
 
-    if os.path.exists(HISTORY_FILE):
 
-        with open(
-            HISTORY_FILE,
-            "r"
-        ) as file:
+def load_history(farmer_id):
+
+    file_path = (
+        f"data/farmers/{farmer_id}.json"
+    )
+
+
+    if os.path.exists(file_path):
+
+        with open(file_path,"r") as file:
 
             return json.load(file)
 

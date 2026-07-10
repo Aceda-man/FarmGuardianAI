@@ -7,5 +7,14 @@
         "problem": "My maize leaves have holes and insects are inside the plant",
         "diagnosis": "Fall Armyworm",
         "type": "Pest"
+    },
+    {
+        "date": "2026-07-11 00:33:32.829298",
+        "farmer": "",
+        "location": "",
+        "crop": "Sweet Potato",
+        "problem": "my sweet potato is being eaten by insects",
+        "diagnosis": "Sweet Potato Weevil",
+        "type": "Pest"
     }
 ]
