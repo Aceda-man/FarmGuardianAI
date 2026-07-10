@@ -1,8 +1,16 @@
 import streamlit as st
 from PIL import Image
 
-from utils.helpers import analyze_crop_problem
-from utils.storage import save_diagnosis, load_history
+from utils.helpers import (
+    analyze_crop_problem,
+    get_crop_count,
+    get_problem_count
+)
+
+from utils.storage import (
+    save_diagnosis,
+    load_history
+)
 
 
 # -----------------------------
@@ -28,10 +36,12 @@ st.subheader(
 
 st.write(
     """
-    FarmGuardian AI helps smallholder farmers identify crop problems
-    and receive practical agricultural recommendations.
+    FarmGuardian AI helps Nigerian smallholder farmers
+    identify crop problems and receive practical
+    agricultural recommendations.
 
-    Powered by agricultural knowledge + future Gemma 4 intelligence.
+    Combining agricultural knowledge with future
+    Gemma 4 multimodal intelligence.
     """
 )
 
@@ -39,17 +49,72 @@ st.write(
 st.divider()
 
 
+
 # -----------------------------
-# Sidebar - Farmer Profile
+# Dashboard Metrics
+# -----------------------------
+
+crop_count = get_crop_count()
+
+problem_count = get_problem_count()
+
+history_count = len(
+    load_history()
+)
+
+
+col1, col2, col3, col4 = st.columns(4)
+
+
+with col1:
+
+    st.metric(
+        "🌱 Supported Crops",
+        crop_count
+    )
+
+
+with col2:
+
+    st.metric(
+        "🐛 Agricultural Problems",
+        problem_count
+    )
+
+
+with col3:
+
+    st.metric(
+        "📊 Diagnoses Made",
+        history_count
+    )
+
+
+with col4:
+
+    st.metric(
+        "🇳🇬 Region Focus",
+        "Nigeria"
+    )
+
+
+
+# -----------------------------
+# Sidebar Farmer Profile
 # -----------------------------
 
 with st.sidebar:
 
-    st.header("👨🏾‍🌾 Farmer Profile")
+
+    st.header(
+        "👨🏾‍🌾 Farmer Profile"
+    )
+
 
     farmer_name = st.text_input(
         "Farmer name"
     )
+
 
     location = st.text_input(
         "Location"
@@ -57,13 +122,16 @@ with st.sidebar:
 
 
     language = st.selectbox(
+
         "Preferred Language",
+
         [
             "English",
             "Yoruba",
             "Hausa",
             "Igbo"
         ]
+
     )
 
 
@@ -74,26 +142,31 @@ with st.sidebar:
         """
         Future Gemma 4 Features:
 
-        • Image diagnosis
-        • Voice assistant
-        • Local language support
-        • Offline deployment
+        📸 Image crop diagnosis
+
+        🎙 Voice assistant
+
+        🌍 Local language support
+
+        📱 Offline AI deployment
         """
     )
 
 
 
 # -----------------------------
-# Main Navigation
+# Navigation
 # -----------------------------
 
 tab1, tab2, tab3, tab4 = st.tabs(
+
     [
         "🔍 Crop Diagnosis",
         "📊 Farm History",
         "🌦 Advisory",
         "ℹ️ About"
     ]
+
 )
 
 
@@ -104,15 +177,21 @@ tab1, tab2, tab3, tab4 = st.tabs(
 
 with tab1:
 
-    st.header("🔍 Crop Diagnosis")
+
+    st.header(
+        "🔍 Crop Diagnosis"
+    )
 
 
     col1, col2 = st.columns(2)
 
 
+
     with col1:
 
+
         crop = st.selectbox(
+
             "Select Crop",
 
             [
@@ -133,21 +212,28 @@ with tab1:
                 "Oil Palm",
                 "Ginger"
             ]
+
         )
 
 
+
         description = st.text_area(
+
             "Describe what you see on the crop",
 
             placeholder=
             "Example: My maize leaves have holes and insects are inside the plant"
+
         )
+
 
 
 
     with col2:
 
+
         uploaded_image = st.file_uploader(
+
             "Upload crop image",
 
             type=[
@@ -155,19 +241,26 @@ with tab1:
                 "jpeg",
                 "png"
             ]
+
         )
 
 
         if uploaded_image:
 
+
             image = Image.open(
                 uploaded_image
             )
 
+
             st.image(
+
                 image,
+
                 caption="Uploaded Crop Image",
+
                 use_container_width=True
+
             )
 
 
@@ -175,9 +268,13 @@ with tab1:
     st.divider()
 
 
+
     if st.button(
+
         "🌱 Analyze Crop",
+
         use_container_width=True
+
     ):
 
 
@@ -185,42 +282,62 @@ with tab1:
 
 
             result = analyze_crop_problem(
+
                 crop,
+
                 description
+
             )
+
 
 
             if result:
 
 
                 st.success(
-                    "Analysis completed"
+                    "🌱 Analysis completed successfully"
                 )
 
 
                 save_diagnosis(
+
                     farmer_name,
+
                     location,
+
                     crop,
+
                     description,
+
                     result
+
                 )
 
-
-                st.header(
-                    f"Possible Issue: {result['name']}"
-                )
-
-
-                st.write(
-                    "**Category:**",
-                    result["type"]
-                )
 
 
                 st.subheader(
-                    "Symptoms"
+
+                    f"🔎 Identified Problem: {result['name']}"
+
                 )
+
+
+                st.info(
+
+                    f"""
+                    Problem Category:
+
+                    {result['type']}
+                    """
+
+                )
+
+
+
+                st.subheader(
+                    "🩺 Symptoms"
+                )
+
 
                 for symptom in result["symptoms"]:
 
@@ -230,18 +347,22 @@ with tab1:
                     )
 
 
+
                 st.subheader(
-                    "Possible Cause"
+                    "⚠️ Possible Cause"
                 )
+
 
                 st.write(
                     result["cause"]
                 )
 
 
+
                 st.subheader(
-                    "Recommended Management"
+                    "✅ Recommended Management"
                 )
+
 
                 for action in result["management"]:
 
@@ -251,23 +372,46 @@ with tab1:
                     )
 
 
-            else:
 
                 st.warning(
-                    """
-                    No matching problem found.
 
-                    Gemma 4 integration will provide
-                    advanced reasoning in the final version.
                     """
+                    Note:
+                    Final version will use Gemma 4
+                    for advanced image reasoning
+                    and intelligent recommendations.
+                    """
+
                 )
+
+
+
+            else:
+
+
+                st.warning(
+
+                    """
+                    No matching agricultural issue found.
+
+                    Gemma 4 integration will improve
+                    diagnosis accuracy.
+                    """
+
+                )
+
 
 
         else:
 
+
             st.warning(
+
                 "Please describe the crop problem first."
+
             )
+
+
 
 
 
@@ -277,12 +421,14 @@ with tab1:
 
 with tab2:
 
+
     st.header(
         "📊 Previous Farm Diagnoses"
     )
 
 
     history = load_history()
+
 
 
     if history:
@@ -292,7 +438,9 @@ with tab2:
 
 
             with st.expander(
+
                 f"{item['crop']} - {item['diagnosis']}"
+
             ):
 
 
@@ -309,6 +457,12 @@ with tab2:
 
 
                 st.write(
+                    "🌱 Crop:",
+                    item["crop"]
+                )
+
+
+                st.write(
                     "Problem:",
                     item["problem"]
                 )
@@ -320,12 +474,15 @@ with tab2:
                 )
 
 
+
     else:
 
 
         st.info(
             "No previous diagnoses yet."
         )
+
+
 
 
 
@@ -342,20 +499,24 @@ with tab3:
 
 
     st.write(
+
         """
-        Future Gemma 4 advisory features:
+        Future Gemma 4 advisory system:
 
-        🌱 Crop management advice
+        🌱 Crop management recommendations
 
-        🌧 Weather-based recommendations
+        🌧 Weather-based decisions
 
-        🐛 Pest outbreak alerts
+        🐛 Pest outbreak warnings
 
-        🌾 Fertilizer recommendations
+        🌾 Fertilizer guidance
 
-        📍 Region-specific farming guidance
+        📍 Location-specific farming advice
+
         """
+
     )
+
 
 
     region = st.selectbox(
@@ -373,16 +534,20 @@ with tab3:
     )
 
 
-    st.info(
+
+    st.success(
+
         f"""
-        Advisory region:
+        Selected Region:
 
         {region}
 
-        AI-powered recommendations will be added
-        through Gemma 4 integration.
+        AI advisory system will be powered by Gemma 4.
         """
+
     )
+
+
 
 
 
@@ -399,25 +564,44 @@ with tab4:
 
 
     st.write(
+
         """
-        FarmGuardian AI is an agricultural assistant
-        designed for Nigerian smallholder farmers.
+        ## The Problem
 
-        It combines:
-
-        ✅ Agricultural knowledge
-
-        ✅ Crop diagnosis
-
-        ✅ Digital farm records
-
-        ✅ AI reasoning
+        Many Nigerian smallholder farmers lose crops
+        because diseases and pests are detected too late.
 
 
-        Future versions will integrate Gemma 4
-        for multimodal crop understanding,
-        local languages, and offline intelligence.
+        ## Our Solution
+
+        FarmGuardian AI provides accessible agricultural
+        intelligence through:
+
+        🌱 Crop diagnosis
+
+        📚 Agricultural knowledge
+
+        📊 Digital farm records
+
+        🤖 Artificial intelligence
+
+
+        ## Future Vision
+
+        With Gemma 4 integration:
+
+        • Image-based crop diagnosis
+
+        • Local language support
+
+        • Offline AI assistance
+
+        • Smarter farming decisions
+
+
+        Built for farmers, powered by AI.
         """
+
     )
 
 
@@ -427,6 +611,7 @@ with tab4:
 # -----------------------------
 
 st.divider()
+
 
 st.caption(
     "FarmGuardian AI 🌱 | Built for Nigerian smallholder farmers | Gemma 4 Hackathon"
