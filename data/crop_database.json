@@ -319,6 +319,425 @@
 
         ]
 
-    }
+    },
+
+"Cassava": {
+    "scientific_name": "Manihot esculenta",
+    "category": "Root Crop",
+    "local_names": [
+        "Cassava",
+        "Garri crop"
+    ],
+    "major_regions": [
+        "Benue",
+        "Kogi",
+        "Oyo",
+        "Delta"
+    ],
+    "problems": [
+        {
+            "name": "Cassava Mosaic Disease",
+            "type": "Disease",
+            "symptoms": [
+                "Mosaic patterns on leaves",
+                "Leaf distortion",
+                "Reduced growth"
+            ],
+            "cause": "Cassava mosaic virus transmitted by whiteflies",
+            "prevention": [
+                "Use resistant varieties",
+                "Plant disease-free cuttings"
+            ],
+            "management": [
+                "Remove infected plants",
+                "Control whitefly population"
+            ]
+        },
+        {
+            "name": "Cassava Bacterial Blight",
+            "type": "Disease",
+            "symptoms": [
+                "Leaf spots",
+                "Wilting",
+                "Stem lesions"
+            ],
+            "cause": "Xanthomonas bacterial infection",
+            "prevention": [
+                "Use healthy planting materials"
+            ],
+            "management": [
+                "Remove infected plants",
+                "Practice field sanitation"
+            ]
+        }
+    ]
+},
+
+
+"Yam": {
+    "scientific_name": "Dioscorea rotundata",
+    "category": "Root Crop",
+    "local_names": [
+        "Yam",
+        "Isu"
+    ],
+    "major_regions": [
+        "Benue",
+        "Nasarawa",
+        "Oyo",
+        "Ekiti"
+    ],
+    "problems": [
+        {
+            "name": "Yam Tuber Rot",
+            "type": "Disease",
+            "symptoms": [
+                "Soft rotting tubers",
+                "Bad smell",
+                "Storage losses"
+            ],
+            "cause": "Fungal and bacterial infection",
+            "prevention": [
+                "Handle tubers carefully",
+                "Store properly"
+            ],
+            "management": [
+                "Remove infected tubers",
+                "Improve storage conditions"
+            ]
+        }
+    ]
+},
+
+
+"Sweet Potato": {
+    "scientific_name": "Ipomoea batatas",
+    "category": "Root Crop",
+    "local_names": [
+        "Sweet potato"
+    ],
+    "major_regions": [
+        "Plateau",
+        "Kaduna",
+        "Kano"
+    ],
+    "problems": [
+        {
+            "name": "Sweet Potato Weevil",
+            "type": "Pest",
+            "symptoms": [
+                "Tunnels in roots",
+                "Bitter taste",
+                "Reduced yield"
+            ],
+            "cause": "Cylas species infestation",
+            "prevention": [
+                "Use healthy vines",
+                "Avoid cracks in soil"
+            ],
+            "management": [
+                "Crop rotation",
+                "Destroy infected residues"
+            ]
+        }
+    ]
+},
+
+"Cowpea": {
+    "scientific_name": "Vigna unguiculata",
+    "category": "Legume",
+    "local_names": [
+        "Beans",
+        "Black-eyed pea"
+    ],
+    "major_regions": [
+        "Kano",
+        "Kaduna",
+        "Borno"
+    ],
+    "problems": [
+        {
+            "name": "Aphid Infestation",
+            "type": "Pest",
+            "symptoms": [
+                "Curling leaves",
+                "Sticky leaf surface",
+                "Poor growth"
+            ],
+            "cause": "Aphid feeding damage",
+            "prevention": [
+                "Early planting",
+                "Use resistant varieties"
+            ],
+            "management": [
+                "Use integrated pest management"
+            ]
+        },
+        {
+            "name": "Pod Borer",
+            "type": "Pest",
+            "symptoms": [
+                "Damaged pods",
+                "Seed holes"
+            ],
+            "cause": "Maruca vitrata infestation",
+            "prevention": [
+                "Field monitoring"
+            ],
+            "management": [
+                "Apply recommended insect control"
+            ]
+        }
+    ]
+},
+
+
+"Groundnut": {
+    "scientific_name": "Arachis hypogaea",
+    "category": "Legume",
+    "local_names": [
+        "Peanut"
+    ],
+    "major_regions": [
+        "Kano",
+        "Kaduna",
+        "Sokoto"
+    ],
+    "problems": [
+        {
+            "name": "Groundnut Leaf Spot",
+            "type": "Disease",
+            "symptoms": [
+                "Brown leaf spots",
+                "Premature leaf fall"
+            ],
+            "cause": "Fungal infection",
+            "prevention": [
+                "Crop rotation",
+                "Use resistant varieties"
+            ],
+            "management": [
+                "Apply recommended fungicides"
+            ]
+        }
+    ]
+},
+
+
+"Soybean": {
+    "scientific_name": "Glycine max",
+    "category": "Legume",
+    "local_names": [
+        "Soybean"
+    ],
+    "major_regions": [
+        "Benue",
+        "Kaduna",
+        "Niger"
+    ],
+    "problems": [
+        {
+            "name": "Soybean Rust",
+            "type": "Disease",
+            "symptoms": [
+                "Small brown spots",
+                "Leaf yellowing"
+            ],
+            "cause": "Fungal infection",
+            "prevention": [
+                "Use resistant varieties"
+            ],
+            "management": [
+                "Apply fungicide when necessary"
+            ]
+        }
+    ]
+},
+
+"Tomato": {
+    "scientific_name": "Solanum lycopersicum",
+    "category": "Vegetable",
+    "local_names": [
+        "Tomati"
+    ],
+    "major_regions": [
+        "Kano",
+        "Kaduna",
+        "Plateau"
+    ],
+    "problems": [
+        {
+            "name": "Tomato Yellow Leaf Curl Virus",
+            "type": "Disease",
+            "symptoms": [
+                "Leaf curling",
+                "Yellow leaves",
+                "Stunted growth"
+            ],
+            "cause": "Virus transmitted by whiteflies",
+            "prevention": [
+                "Use resistant varieties"
+            ],
+            "management": [
+                "Control whiteflies",
+                "Remove infected plants"
+            ]
+        }
+    ]
+},
+
+
+"Pepper": {
+    "scientific_name": "Capsicum annuum",
+    "category": "Vegetable",
+    "local_names": [
+        "Pepper",
+        "Ata"
+    ],
+    "major_regions": [
+        "Kano",
+        "Kaduna"
+    ],
+    "problems": [
+        {
+            "name": "Fruit Rot",
+            "type": "Disease",
+            "symptoms": [
+                "Dark fruit lesions",
+                "Fruit decay"
+            ],
+            "cause": "Fungal infection",
+            "prevention": [
+                "Avoid waterlogging"
+            ],
+            "management": [
+                "Remove infected fruits"
+            ]
+        }
+    ]
+},
+
+
+"Onion": {
+    "scientific_name": "Allium cepa",
+    "category": "Vegetable",
+    "local_names": [
+        "Albasa"
+    ],
+    "major_regions": [
+        "Kano",
+        "Sokoto"
+    ],
+    "problems": [
+        {
+            "name": "Onion Thrips",
+            "type": "Pest",
+            "symptoms": [
+                "Silvery leaves",
+                "Poor bulb formation"
+            ],
+            "cause": "Thrips feeding",
+            "prevention": [
+                "Field monitoring"
+            ],
+            "management": [
+                "Apply recommended pest control"
+            ]
+        }
+    ]
+},
+
+"Cocoa": {
+    "scientific_name": "Theobroma cacao",
+    "category": "Cash Crop",
+    "local_names": [
+        "Cocoa"
+    ],
+    "major_regions": [
+        "Ondo",
+        "Ogun",
+        "Cross River"
+    ],
+    "problems": [
+        {
+            "name": "Black Pod Disease",
+            "type": "Disease",
+            "symptoms": [
+                "Dark lesions on pods",
+                "Pod rot"
+            ],
+            "cause": "Phytophthora fungus",
+            "prevention": [
+                "Maintain plantation hygiene"
+            ],
+            "management": [
+                "Remove infected pods",
+                "Apply recommended fungicides"
+            ]
+        }
+    ]
+},
+
+
+"Oil Palm": {
+    "scientific_name": "Elaeis guineensis",
+    "category": "Cash Crop",
+    "local_names": [
+        "Palm"
+    ],
+    "major_regions": [
+        "Edo",
+        "Delta",
+        "Rivers"
+    ],
+    "problems": [
+        {
+            "name": "Rhinoceros Beetle Damage",
+            "type": "Pest",
+            "symptoms": [
+                "Damaged palm fronds",
+                "Reduced growth"
+            ],
+            "cause": "Oryctes beetle attack",
+            "prevention": [
+                "Maintain farm sanitation"
+            ],
+            "management": [
+                "Integrated pest management"
+            ]
+        }
+    ]
+},
+
+
+"Ginger": {
+    "scientific_name": "Zingiber officinale",
+    "category": "Cash Crop",
+    "local_names": [
+        "Atale"
+    ],
+    "major_regions": [
+        "Kaduna",
+        "Nasarawa"
+    ],
+    "problems": [
+        {
+            "name": "Rhizome Rot",
+            "type": "Disease",
+            "symptoms": [
+                "Yellowing leaves",
+                "Soft rotting rhizomes"
+            ],
+            "cause": "Fungal infection",
+            "prevention": [
+                "Use healthy planting material"
+            ],
+            "management": [
+                "Remove infected plants"
+            ]
+        }
+    ]
+}
 
 }
+
