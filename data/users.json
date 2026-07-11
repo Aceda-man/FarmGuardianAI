@@ -1,7 +1,46 @@
 [
     {
-        "id": "2934922f",
-        "name": "Adeyemi",
-        "location": "ibadan"
+        "id": "11df73f9",
+        "name": "ade",
+        "location": "oyo",
+        "password": "5e77a9dc45f2cf7b9807ff2b927e0041c9b4644ed6f31169d6602b0c6a8606f0",
+        "crops": [
+            "Maize",
+            "Rice",
+            "Cassava",
+            "Yam",
+            "Cowpea",
+            "Tomato",
+            "Pepper",
+            "Groundnut",
+            "Soybean",
+            "Cocoa",
+            "Oil Palm"
+        ],
+        "farm_size": "Less than 1 hectare",
+        "experience": "Beginner",
+        "language": "Yoruba"
+    },
+    {
+        "id": "b83b190b",
+        "name": "ade",
+        "location": "ibadan",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "crops": [
+            "Maize",
+            "Rice",
+            "Cassava",
+            "Yam",
+            "Cowpea",
+            "Tomato",
+            "Pepper",
+            "Groundnut",
+            "Soybean",
+            "Cocoa",
+            "Oil Palm"
+        ],
+        "farm_size": "Less than 1 hectare",
+        "experience": "Beginner",
+        "language": "Hausa"
     }
 ]

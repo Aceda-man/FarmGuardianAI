@@ -1,95 +1,150 @@
 import json
 import os
+from datetime import datetime
 
 
+HISTORY_FILE = "data/history.json"
+
+
+
+# =========================
+# CREATE DATA FOLDER
+# =========================
+
+def ensure_storage():
+
+    folder = os.path.dirname(HISTORY_FILE)
+
+    if not os.path.exists(folder):
+
+        os.makedirs(folder)
+
+
+
+# =========================
+# LOAD ALL HISTORY
+# =========================
+
+def load_data():
+
+    ensure_storage()
+
+
+    if not os.path.exists(HISTORY_FILE):
+
+        return []
+
+
+    with open(
+        HISTORY_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        return json.load(file)
+
+
+
+
+# =========================
+# SAVE DIAGNOSIS
+# =========================
 
 def save_diagnosis(
     farmer_id,
     crop,
     problem,
-    result
+    ai_result
 ):
 
 
-    folder = "data/farmers"
+    history = load_data()
 
 
-    os.makedirs(
-        folder,
-        exist_ok=True
-    )
+    diagnosis = {
 
-
-    file_path = (
-        f"{folder}/{farmer_id}.json"
-    )
-
-
-    record = {
-
+        "farmer_id": farmer_id,
 
         "crop": crop,
 
         "problem": problem,
 
-        "diagnosis": result["name"],
+        "analysis": ai_result.get(
+            "analysis",
+            ""
+        ),
 
-        "type": result["type"]
+        "risk": ai_result.get(
+            "risk",
+            ""
+        ),
+
+        "climate_warning": ai_result.get(
+            "climate_warning",
+            ""
+        ),
+
+        "recommendations": ai_result.get(
+            "recommendations",
+            []
+        ),
+
+        "date": datetime.now().strftime(
+            "%Y-%m-%d %H:%M"
+        )
 
     }
 
 
 
-    if os.path.exists(file_path):
+    history.append(
+        diagnosis
+    )
 
 
-        with open(file_path,"r") as file:
-
-            history = json.load(file)
+    ensure_storage()
 
 
-    else:
-
-        history = []
-
-
-
-    history.append(record)
-
-
-
-    with open(file_path,"w") as file:
+    with open(
+        HISTORY_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
 
 
         json.dump(
-
             history,
-
             file,
-
             indent=4
-
         )
 
 
 
 
+# =========================
+# LOAD FARMER HISTORY ONLY
+# =========================
 
 def load_history(farmer_id):
 
 
-    file_path = (
-        f"data/farmers/{farmer_id}.json"
-    )
+    history = load_data()
 
 
-    if os.path.exists(file_path):
+    farmer_history = []
 
 
-        with open(file_path,"r") as file:
-
-            return json.load(file)
+    for item in history:
 
 
+        if item.get(
+            "farmer_id"
+        ) == farmer_id:
 
-    return []
+
+            farmer_history.append(
+                item
+            )
+
+
+    return farmer_history

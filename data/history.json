@@ -1,20 +1,92 @@
 [
     {
-        "date": "2026-07-11 00:00:21.877127",
-        "farmer": "Adeyemi",
-        "location": "kwara",
-        "crop": "Maize",
-        "problem": "My maize leaves have holes and insects are inside the plant",
-        "diagnosis": "Fall Armyworm",
-        "type": "Pest"
+        "farmer_id": "b83b190b",
+        "crop": "",
+        "problem": "my maize leaf are yellow",
+        "analysis": "\n        Based on the available agricultural knowledge,\n        the crop may be experiencing environmental stress,\n        pest pressure, or nutrient imbalance.\n        ",
+        "risk": "Medium",
+        "climate_warning": "\n        Monitor weather conditions closely.\n        High temperature and irregular rainfall\n        can increase crop stress.\n        ",
+        "recommendations": [
+            "Inspect affected plants regularly",
+            "Maintain proper soil moisture",
+            "Remove severely damaged plant parts",
+            "Seek local agricultural support when necessary"
+        ],
+        "date": "2026-07-11 06:11"
     },
     {
-        "date": "2026-07-11 00:33:32.829298",
-        "farmer": "",
-        "location": "",
-        "crop": "Sweet Potato",
-        "problem": "my sweet potato is being eaten by insects",
-        "diagnosis": "Sweet Potato Weevil",
-        "type": "Pest"
+        "farmer_id": "b83b190b",
+        "crop": "Tomato",
+        "problem": "leaves are curling and turning yellow",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-11 06:18"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "Tomato",
+        "problem": "leaves are curling and turning yellow",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-11 06:18"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "",
+        "problem": "leaves are curling and turning yellow",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-11 06:19"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "Maize",
+        "problem": "Leaves have holes and insects are inside",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-11 06:20"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "maize",
+        "problem": "my maize leaves are yellow",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-11 06:43"
     }
 ]

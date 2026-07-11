@@ -1,17 +1,37 @@
 import json
 import os
 import uuid
+import hashlib
 
 
 USER_FILE = "data/users.json"
 
 
 
+# -----------------------------
+# Password Security
+# -----------------------------
+
+def hash_password(password):
+
+    return hashlib.sha256(
+        password.encode()
+    ).hexdigest()
+
+
+
+# -----------------------------
+# Load Users
+# -----------------------------
+
 def load_users():
 
     if os.path.exists(USER_FILE):
 
-        with open(USER_FILE, "r") as file:
+        with open(
+            USER_FILE,
+            "r"
+        ) as file:
 
             return json.load(file)
 
@@ -19,10 +39,16 @@ def load_users():
 
 
 
+# -----------------------------
+# Save Users
+# -----------------------------
 
 def save_users(users):
 
-    with open(USER_FILE, "w") as file:
+    with open(
+        USER_FILE,
+        "w"
+    ) as file:
 
         json.dump(
             users,
@@ -32,42 +58,85 @@ def save_users(users):
 
 
 
+# -----------------------------
+# Register New Farmer
+# -----------------------------
 
-def register_farmer(name, location):
+def register_farmer(
+    name,
+    location,
+    password,
+    crops=None,
+    farm_size=None,
+    experience=None,
+    language=None
+):
 
     users = load_users()
 
 
-    farmer_id = str(
-        uuid.uuid4()
-    )[:8]
+    # Prevent duplicate accounts
+
+    for user in users:
+
+        if (
+            user["name"].lower()
+            ==
+            name.lower()
+
+            and
+
+            user["location"].lower()
+            ==
+            location.lower()
+        ):
+
+            return None
+
+
 
 
     farmer = {
-
-        "id": farmer_id,
-
+        "id": str(uuid.uuid4())[:8],
         "name": name,
-
-        "location": location
-
+        "location": location,
+        "password": hash_password(password),
+        "crops": crops if crops is not None else [],
+        "farm_size": farm_size,
+        "experience": experience,
+        "language": language,
     }
 
+    users.append(
+        farmer
+    )
 
-    users.append(farmer)
 
-
-    save_users(users)
+    save_users(
+        users
+    )
 
 
     return farmer
 
 
 
+# -----------------------------
+# Login Farmer
+# -----------------------------
 
-def find_farmer(name, location):
+def login_farmer(
+    name,
+    password
+):
 
     users = load_users()
+
+
+    hashed_password = hash_password(
+        password
+    )
+
 
 
     for farmer in users:
@@ -81,13 +150,15 @@ def find_farmer(name, location):
 
             and
 
-            farmer["location"].lower()
+    
+            farmer["password"]
             ==
-            location.lower()
+            hashed_password
 
         ):
 
             return farmer
+
 
 
     return None
