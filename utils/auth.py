@@ -11,7 +11,7 @@ def load_users():
 
     if os.path.exists(USER_FILE):
 
-        with open(USER_FILE,"r") as file:
+        with open(USER_FILE, "r") as file:
 
             return json.load(file)
 
@@ -22,7 +22,7 @@ def load_users():
 
 def save_users(users):
 
-    with open(USER_FILE,"w") as file:
+    with open(USER_FILE, "w") as file:
 
         json.dump(
             users,
@@ -43,7 +43,7 @@ def register_farmer(name, location):
     )[:8]
 
 
-    user = {
+    farmer = {
 
         "id": farmer_id,
 
@@ -54,13 +54,13 @@ def register_farmer(name, location):
     }
 
 
-    users.append(user)
+    users.append(farmer)
 
 
     save_users(users)
 
 
-    return user
+    return farmer
 
 
 
@@ -70,21 +70,24 @@ def find_farmer(name, location):
     users = load_users()
 
 
-    for user in users:
+    for farmer in users:
+
 
         if (
-            user["name"].lower()
+
+            farmer["name"].lower()
             ==
             name.lower()
 
             and
 
-            user["location"].lower()
+            farmer["location"].lower()
             ==
             location.lower()
+
         ):
 
-            return user
+            return farmer
 
 
     return None

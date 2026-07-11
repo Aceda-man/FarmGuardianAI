@@ -1,15 +1,21 @@
+
+
+from utils.auth import (
+    register_farmer,
+    find_farmer,
+)
 import streamlit as st
 from PIL import Image
 
 from utils.helpers import (
     analyze_crop_problem,
     get_crop_count,
-    get_problem_count
+    get_problem_count,
 )
 
 from utils.storage import (
     save_diagnosis,
-    load_history
+    load_history,
 )
 
 
@@ -58,10 +64,17 @@ crop_count = get_crop_count()
 
 problem_count = get_problem_count()
 
-history_count = len(
-    load_history()
-)
+if "farmer" in st.session_state:
 
+    history_count = len(
+        load_history(
+            st.session_state.farmer["id"]
+        )
+    )
+
+else:
+
+    history_count = 0
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -100,57 +113,129 @@ with col4:
 
 
 # -----------------------------
-# Sidebar Farmer Profile
+# Sidebar - Farmer Authentication
 # -----------------------------
 
 with st.sidebar:
 
 
     st.header(
-        "👨🏾‍🌾 Farmer Profile"
+        "👨🏾‍🌾 Farmer Account"
     )
 
 
-    farmer_name = st.text_input(
-        "Farmer name"
-    )
+    if "farmer" not in st.session_state:
 
 
-    location = st.text_input(
-        "Location"
-    )
+        st.subheader(
+            "Login / Register"
+        )
 
 
-    language = st.selectbox(
-
-        "Preferred Language",
-
-        [
-            "English",
-            "Yoruba",
-            "Hausa",
-            "Igbo"
-        ]
-
-    )
+        farmer_name = st.text_input(
+            "Farmer name"
+        )
 
 
-    st.divider()
+        location = st.text_input(
+            "Location"
+        )
 
 
-    st.info(
-        """
-        Future Gemma 4 Features:
 
-        📸 Image crop diagnosis
+        if st.button(
+            "Login"
+        ):
 
-        🎙 Voice assistant
 
-        🌍 Local language support
+            if farmer_name and location:
 
-        📱 Offline AI deployment
-        """
-    )
+
+                farmer = find_farmer(
+                    farmer_name,
+                    location
+                )
+
+
+                if farmer:
+
+
+                    st.session_state.farmer = farmer
+
+
+                    st.success(
+                        f"Welcome back {farmer['name']}!"
+                    )
+
+
+                    st.rerun()
+
+
+
+                else:
+
+
+                    farmer = register_farmer(
+
+                        farmer_name,
+
+                        location
+
+                    )
+
+
+                    st.session_state.farmer = farmer
+
+
+                    st.success(
+                        "New farmer profile created!"
+                    )
+
+
+                    st.rerun()
+
+
+
+            else:
+
+
+                st.warning(
+                    "Please enter your name and location."
+                )
+
+
+
+    else:
+
+
+        farmer = st.session_state.farmer
+
+
+        st.success(
+            f"""
+            Logged in:
+
+            👨🏾‍🌾 {farmer['name']}
+
+            📍 {farmer['location']}
+            """
+        )
+
+
+
+        st.divider()
+
+
+
+        if st.button(
+            "Logout"
+        ):
+
+
+            del st.session_state.farmer
+
+
+            st.rerun()
 
 
 
@@ -269,50 +354,31 @@ with tab1:
 
 
 
-    if st.button(
+    if st.button("🌱 Analyze Crop"):
 
-        "🌱 Analyze Crop",
+        if "farmer" not in st.session_state:
 
-        use_container_width=True
+            st.warning("Please login first.")
 
-    ):
-
+            st.stop()
 
         if description:
 
-
-            result = analyze_crop_problem(
-
-                crop,
-
-                description
-
-            )
+            result = analyze_crop_problem(crop, description)
 
 
 
             if result:
 
 
-                st.success(
-                    "🌱 Analysis completed successfully"
-                )
-
+                st.success("🌱 Analysis completed successfully")
 
                 save_diagnosis(
-
-                    farmer_name,
-
-                    location,
-
+                    st.session_state.farmer["id"],
                     crop,
-
                     description,
-
                     result
-
                 )
-
 
 
                 st.subheader(
@@ -423,129 +489,67 @@ with tab2:
 
 
     st.header(
-        "📊 Previous Farm Diagnoses"
+        "📊 My Farm History"
     )
 
 
-    history = load_history()
+    if "farmer" in st.session_state:
 
 
-
-    if history:
-
-
-        for item in history:
+        history = load_history(
+            st.session_state.farmer["id"]
+        )
 
 
-            with st.expander(
-
-                f"{item['crop']} - {item['diagnosis']}"
-
-            ):
+        if history:
 
 
-                st.write(
-                    "👨🏾‍🌾 Farmer:",
-                    item["farmer"]
-                )
+            for item in history:
 
 
-                st.write(
-                    "📍 Location:",
-                    item["location"]
-                )
+                with st.expander(
+                    f"{item['crop']} - {item['diagnosis']}"
+                ):
 
 
-                st.write(
-                    "🌱 Crop:",
-                    item["crop"]
-                )
+                    st.write(
+                        "🌱 Crop:",
+                        item["crop"]
+                    )
 
 
-                st.write(
-                    "Problem:",
-                    item["problem"]
-                )
+                    st.write(
+                        "Problem:",
+                        item["problem"]
+                    )
 
 
-                st.write(
-                    "Date:",
-                    item["date"]
-                )
+                    st.write(
+                        "Diagnosis:",
+                        item["diagnosis"]
+                    )
 
+
+                    st.write(
+                        "Category:",
+                        item["type"]
+                    )
+
+
+        else:
+
+
+            st.info(
+                "No diagnosis history available yet."
+            )
 
 
     else:
 
 
-        st.info(
-            "No previous diagnoses yet."
+        st.warning(
+            "Please login to view your farm history."
         )
-
-
-
-
-
-# =====================================================
-# TAB 3 - FARMING ADVISORY
-# =====================================================
-
-with tab3:
-
-
-    st.header(
-        "🌦 Farming Advisory"
-    )
-
-
-    st.write(
-
-        """
-        Future Gemma 4 advisory system:
-
-        🌱 Crop management recommendations
-
-        🌧 Weather-based decisions
-
-        🐛 Pest outbreak warnings
-
-        🌾 Fertilizer guidance
-
-        📍 Location-specific farming advice
-
-        """
-
-    )
-
-
-
-    region = st.selectbox(
-
-        "Select farming region",
-
-        [
-            "North West",
-            "North Central",
-            "South West",
-            "South East",
-            "South South"
-        ]
-
-    )
-
-
-
-    st.success(
-
-        f"""
-        Selected Region:
-
-        {region}
-
-        AI advisory system will be powered by Gemma 4.
-        """
-
-    )
 
 
 

@@ -1,0 +1,14 @@
+[
+    {
+        "crop": "Maize",
+        "problem": "my maize leave has insect",
+        "diagnosis": "Fall Armyworm",
+        "type": "Pest"
+    },
+    {
+        "crop": "Sweet Potato",
+        "problem": "my crop is dying?",
+        "diagnosis": "Sweet Potato Weevil",
+        "type": "Pest"
+    }
+]

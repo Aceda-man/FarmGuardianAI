@@ -10,6 +10,7 @@ def save_diagnosis(
     result
 ):
 
+
     folder = "data/farmers"
 
 
@@ -26,6 +27,7 @@ def save_diagnosis(
 
     record = {
 
+
         "crop": crop,
 
         "problem": problem,
@@ -37,26 +39,36 @@ def save_diagnosis(
     }
 
 
+
     if os.path.exists(file_path):
+
 
         with open(file_path,"r") as file:
 
-            history=json.load(file)
+            history = json.load(file)
+
 
     else:
 
-        history=[]
+        history = []
+
 
 
     history.append(record)
 
 
+
     with open(file_path,"w") as file:
 
+
         json.dump(
+
             history,
+
             file,
+
             indent=4
+
         )
 
 
@@ -65,6 +77,7 @@ def save_diagnosis(
 
 def load_history(farmer_id):
 
+
     file_path = (
         f"data/farmers/{farmer_id}.json"
     )
@@ -72,9 +85,11 @@ def load_history(farmer_id):
 
     if os.path.exists(file_path):
 
+
         with open(file_path,"r") as file:
 
             return json.load(file)
+
 
 
     return []
