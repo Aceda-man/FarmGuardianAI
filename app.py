@@ -466,66 +466,47 @@ with tab1:
             "Example: Maize, Tomato, Cassava"
         )
 
+
         st.subheader(
             "🌦 Current Weather Condition"
         )
 
-
         temperature = st.slider(
-
             "Temperature (°C)",
-
             15,
-
             45,
-
-            30
-
+            30,
+            key="temperature_slider"
         )
 
+    with col2:
 
         rainfall = st.selectbox(
-
             "Rainfall Condition",
-
             [
-
                 "Low",
                 "Moderate",
                 "High"
-
-            ]
-
+            ],
+            key="rainfall_condition"
         )
-
 
         flood_risk = st.selectbox(
-
             "Flood Risk",
-
             [
-
                 "Low",
                 "Medium",
                 "High"
-
             ]
-
         )
 
-
         drought_risk = st.selectbox(
-
             "Drought Risk",
-
             [
-
                 "Low",
                 "Medium",
                 "High"
-
             ]
-
         )
 
         st.subheader(

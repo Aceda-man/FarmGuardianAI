@@ -6,20 +6,19 @@ def process_crop_image(uploaded_file):
 
     try:
 
+        # Read image
+
+        image_bytes = uploaded_file.read()
+
+
         image = Image.open(
-            uploaded_file
+            io.BytesIO(image_bytes)
         )
 
 
-        # Resize for AI efficiency
-
-        image.thumbnail(
-            (512,512)
-        )
-
+        # Basic image information
 
         image_info = {
-
 
             "filename":
             uploaded_file.name,
@@ -33,25 +32,15 @@ def process_crop_image(uploaded_file):
             image.size,
 
 
-            "mode":
-            image.mode,
-
-
             "description":
-
             """
 Crop image uploaded by farmer.
 
-Gemma 4 vision model will analyze:
-
-- Leaf colour
-- Lesions
-- Pest damage
-- Plant stress
-- Disease symptoms
-
-            """
-
+Image will be analyzed by
+Gemma multimodal intelligence
+for disease, pest damage,
+nutrient deficiency and stress signs.
+"""
         }
 
 
@@ -62,6 +51,10 @@ Gemma 4 vision model will analyze:
     except Exception as e:
 
 
-        print(e)
+        print(
+            "Image processing error:",
+            e
+        )
+
 
         return None, None

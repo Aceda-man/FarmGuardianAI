@@ -88,5 +88,35 @@
             "Apply balanced fertilizer based on soil condition"
         ],
         "date": "2026-07-11 06:43"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "",
+        "problem": "my pepper leaves are  rotting",
+        "analysis": "\nPossible tomato stress detected.\n\nThe symptoms may be related to:\n\n\u2022 Tomato yellow leaf curl virus\n\u2022 Nutrient deficiency\n\u2022 Water stress\n\nFurther image reasoning from Gemma 4\nwill improve confidence.\n            ",
+        "risk": "Medium - Monitor crop closely",
+        "climate_warning": "\nHigh temperature and irregular rainfall\ncan increase tomato stress and disease pressure.\n            ",
+        "recommendations": [
+            "Remove severely infected plants",
+            "Avoid waterlogging around roots",
+            "Monitor insect vectors such as whiteflies",
+            "Apply balanced fertilizer based on soil condition"
+        ],
+        "date": "2026-07-12 00:30"
+    },
+    {
+        "farmer_id": "b83b190b",
+        "crop": "",
+        "problem": "why is my tomato leave yellow",
+        "analysis": "\nPossible crop problem detected.\n\nThe farmer description suggests possible\ncrop stress caused by disease, pest attack,\nor environmental conditions.\n\nFurther image reasoning will be handled\nby Gemma multimodal intelligence.\n        ",
+        "risk": "Medium",
+        "climate_warning": "\nMonitor rainfall, soil moisture,\ntemperature and field conditions.\n        ",
+        "recommendations": [
+            "Inspect affected crop areas",
+            "Remove heavily damaged plant parts",
+            "Monitor pests and disease symptoms",
+            "Apply suitable agricultural practices"
+        ],
+        "date": "2026-07-12 22:07"
     }
 ]

@@ -42,5 +42,18 @@
         "farm_size": "Less than 1 hectare",
         "experience": "Beginner",
         "language": "Hausa"
+    },
+    {
+        "id": "299ec1fa",
+        "name": "Olawepo",
+        "location": "ilorin",
+        "password": "6724c78f3de25169d63493266d0b23b340bf9eeab65b9b8bda272a9e18fab82b",
+        "crops": [
+            "Cowpea",
+            "Cassava"
+        ],
+        "farm_size": "1-5 hectares",
+        "experience": "Intermediate",
+        "language": "Yoruba"
     }
 ]
