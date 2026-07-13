@@ -121,3 +121,20 @@ def gemma_response(prompt):
         ]
 
     }
+
+def detect_crop(description, farmer_crops):
+
+    """
+    Detect crop mentioned by farmer.
+    """
+
+    description = description.lower()
+
+    for crop in farmer_crops:
+
+        if crop.lower() in description:
+            return crop
+
+
+    # If no crop found
+    return "Unknown crop"

@@ -4,7 +4,9 @@ from utils.language import (
     simplify_response
 )
 
-from utils.weather import create_weather_profile
+from utils.ai_engine import detect_crop
+
+from utils.weather import get_weather
 
 from utils.voice import listen_to_farmer
 from utils.ai_engine import farmguardian_ai_response
@@ -37,6 +39,30 @@ from utils.advisory import generate_advisory
 from utils.image_processor import process_crop_image
 
 from utils.weather import get_weather
+
+crops = [
+    "Maize",
+    "Rice",
+    "Cassava",
+    "Yam",
+    "Cowpea",
+    "Tomato",
+    "Pepper",
+    "Groundnut",
+    "Soybean",
+    "Cocoa",
+    "Oil Palm",
+    "Sorghum",
+    "Millet",
+    "Plantain",
+    "Banana",
+    "Okra",
+    "Ewedu",
+    "Vegetable",
+    "Potato",
+    "Cucumber"
+]
+
 
 # -----------------------------
 # Page Configuration
@@ -449,23 +475,35 @@ with tab1:
 
     st.header("🌱 Crop Diagnosis")
 
+    if "farmer" in st.session_state:
 
-    crop = st.selectbox(
-        "Select Crop",
-        crops
-    )
+        farmer_crops = st.session_state.farmer.get(
+            "crops",
+            []
+        )
+
+    else:
+
+        farmer_crops = []
 
 
     description = st.text_area(
         "Describe the problem"
     )
 
+    crop = detect_crop(
+        description,
+        farmer_crops
+    )
+
+    st.info(
+        f"🌱 Detected Crop: {crop}"
+    )
 
     image = st.file_uploader(
         "Upload Crop Image",
         type=["jpg", "png", "jpeg"]
     )
-
 
     if st.button("🔍 Analyze Crop"):
 
@@ -505,8 +543,9 @@ if st.session_state.voice_question:
 
 if "voice_answer" in st.session_state:
 
-    st.write("🤖 FarmGuardian AI:")
-    st.success(
+  if st.session_state.voice_answer:
+
+    st.write(
         st.session_state.voice_answer["analysis"]
     )
    
@@ -596,16 +635,14 @@ with tab2:
         )
 
 # =====================================================
-# TAB 3 - ADVISORY                                                                                          
+# TAB 3 - ADVISORY
 # =====================================================
 
 with tab3:
 
-
     st.header(
         "🌦 Personalized Climate Advisory"
     )
-
 
     if "farmer" in st.session_state:
 
@@ -615,120 +652,113 @@ with tab3:
             farmer["location"]
         )
 
-        st.write(
-            f"""
-            👨🏾‍🌾 Farmer:
-            {farmer['name']}
+        st.subheader("🌦 Current Weather")
 
+        col1, col2, col3 = st.columns(3)
 
-            📍 Location:
-            {farmer['location']}
-
-
-            🌱 Crops:
-            {", ".join(farmer.get('crops', []))}
-            """
-        )
-
-st.subheader("🌍 Current Farm Climate")
-
-
-weather_col1, weather_col2, weather_col3, weather_col4 = st.columns(4)
-
-
-with weather_col1:
-
-    st.metric(
-        "🌡 Temperature",
-        weather["temperature"]
-    )
-
-
-with weather_col2:
-
-    st.metric(
-        "💧 Humidity",
-        weather["humidity"]
-    )
-
-
-with weather_col3:
-
-    st.metric(
-        "🌧 Rainfall",
-        weather["rainfall"]
-    )
-
-
-with weather_col4:
-
-    st.metric(
-        "☁ Condition",
-        weather["condition"]
-    )
-
-if st.button(
-    "🌦 Generate Climate Advisory",
-    key="climate_advisory_button"
-):
-
-    advisory = generate_advisory(
-
-        farmer["location"],
-
-        farmer.get(
-            "crops",
-            []
-        )
-
-    )
-
-
-    st.subheader(
-        "⚠️ Climate Risks"
-    )
-
-
-    for risk in advisory["risks"]:
-
-        st.warning(
-            risk
-        )
-
-
-
-    st.subheader(
-        "🌱 Crop Specific Risks"
-    )
-
-
-    for item in advisory["crop_advice"]:
-
-        st.write(
-            f"### {item['crop']}"
-        )
-
-
-        for risk in item["risks"]:
-
-            st.write(
-                "🔹",
-                risk
+        with col1:
+            st.metric(
+                "🌡 Temperature",
+                weather["temperature"]
             )
 
+        with col2:
+            st.metric(
+                "💧 Humidity",
+                weather["humidity"]
+            )
+
+        with col3:
+            st.metric(
+                "🌧 Rainfall",
+                weather["rainfall"]
+            )
+            st.write(
+                f"""
+                👨🏾‍🌾 Farmer:
+                {farmer['name']}
 
 
-    st.subheader(
-        "✅ Recommended Actions"
-    )
+                📍 Location:
+                {farmer['location']}
 
 
-    for action in advisory["recommendations"]:
+                🌱 Crops:
+                {", ".join(farmer.get('crops', []))}
+                """
+            )
 
-        st.success(
-            action
-        )
+        st.subheader("🌍 Current Farm Climate")
 
+        weather_col1, weather_col2, weather_col3, weather_col4 = st.columns(4)
+
+        with weather_col1:
+            st.metric(
+                "🌡 Temperature",
+                weather["temperature"]
+            )
+
+        with weather_col2:
+            st.metric(
+                "💧 Humidity",
+                weather["humidity"]
+            )
+
+        with weather_col3:
+            st.metric(
+                "🌧 Rainfall",
+                weather["rainfall"]
+            )
+
+        with weather_col4:
+            st.metric(
+                "☁ Condition",
+                weather["condition"]
+            )
+
+        if st.button(
+            "🌦 Generate Climate Advisory",
+            key="climate_advisory_button"
+        ):
+            advisory = generate_advisory(
+                farmer["location"],
+                farmer.get(
+                    "crops",
+                    []
+                )
+            )
+
+            st.subheader(
+                "⚠️ Climate Risks"
+            )
+
+            for risk in advisory["risks"]:
+                st.warning(
+                    risk
+                )
+
+            st.subheader(
+                "🌱 Crop Specific Risks"
+            )
+
+            for item in advisory["crop_advice"]:
+                st.write(
+                    f"### {item['crop']}"
+                )
+                for risk in item["risks"]:
+                    st.write(
+                        "🔹",
+                        risk
+                    )
+
+            st.subheader(
+                "✅ Recommended Actions"
+            )
+
+            for action in advisory["recommendations"]:
+                st.success(
+                    action
+                )
     else:
         st.warning(
             "Please login first."
@@ -748,45 +778,56 @@ with tab4:
 
 
     st.write(
+"""
+## The Problem
 
-        """
-        ## The Problem
-
-        Many Nigerian smallholder farmers lose crops
-        because diseases and pests are detected too late.
-
-
-        ## Our Solution
-
-        FarmGuardian AI provides accessible agricultural
-        intelligence through:
-
-        🌱 Crop diagnosis
-
-        📚 Agricultural knowledge
-
-        📊 Digital farm records
-
-        🤖 Artificial intelligence
+Smallholder farmers in Nigeria often lose crops because
+pests, diseases, and climate risks are detected too late.
+Many farmers also lack access to timely agricultural
+education and digital farming tools.
 
 
-        ## Future Vision
+## Our Solution
 
-        With Gemma 4 integration:
+FarmGuardian AI is an AI-powered agricultural assistant
+designed for Nigerian smallholder farmers.
 
-        • Image-based crop diagnosis
+It provides:
 
-        • Local language support
+🌱 AI-powered crop diagnosis
 
-        • Offline AI assistance
+🎤 Voice-based farmer interaction
 
-        • Smarter farming decisions
+🌦 Climate-aware farming advisory
+
+📊 Digital farm history records
+
+📚 Accessible agricultural knowledge
 
 
-        Built for farmers, powered by AI.
-        """
+## Technology
 
-    )
+FarmGuardian AI combines:
+
+🤖 Gemma AI intelligence
+
+🌦 Weather data integration
+
+🎙 Offline speech recognition
+
+🌱 Agricultural knowledge systems
+
+
+## Impact
+
+Supporting farmers through accessible AI education,
+better decision making, and climate-smart agriculture.
+
+
+Built for Nigerian farmers.
+Powered by Artificial Intelligence.
+"""
+)
 
 
 

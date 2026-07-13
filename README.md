@@ -219,6 +219,8 @@ FarmGuardian AI helps farmers adapt to climate challenges through:
 
 - Pillow (PIL)
 
+## Audio
+Download Vosk model and place inside models/
 ---
 
 # 📂 Project Structure
