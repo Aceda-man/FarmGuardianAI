@@ -1,53 +1,51 @@
-import speech_recognition as sr
+import sounddevice as sd
+import json
+import queue
+import vosk
 
 
+import os
 
-def capture_voice():
+MODEL_PATH = os.path.join(
+    os.getcwd(),
+    "models",
+    "vosk-model-small-en-us-0.15"
+)
 
-    recognizer = sr.Recognizer()
-
-
-    try:
-
-        with sr.Microphone() as source:
-
-            print(
-                "Listening..."
-            )
+model = vosk.Model(MODEL_PATH)
 
 
-            audio = recognizer.listen(
-                source,
-                timeout=5
-            )
+def listen_to_farmer(duration=5):
 
+    q = queue.Queue()
 
-        text = recognizer.recognize_google(
-            audio
+    def callback(indata, frames, time, status):
+        q.put(bytes(indata))
+
+    print("Listening...")
+
+    with sd.RawInputStream(
+        samplerate=16000,
+        blocksize=8000,
+        dtype="int16",
+        channels=1,
+        callback=callback
+    ):
+
+        recognizer = vosk.KaldiRecognizer(
+            model,
+            16000
         )
 
+        for _ in range(int(duration * 2)):
 
-        return text
+            data = q.get()
 
+            if recognizer.AcceptWaveform(data):
+                result = json.loads(
+                    recognizer.Result()
+                )
 
+                return result["text"]
 
-    except sr.WaitTimeoutError:
-
-        return "No voice detected"
-
-
-
-    except sr.UnknownValueError:
-
-        return "Could not understand speech"
-
-
-
-    except Exception as e:
-
-        print(
-            "Voice error:",
-            e
-        )
-
-        return None
+    return "No speech detected"

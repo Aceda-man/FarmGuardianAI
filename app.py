@@ -6,6 +6,9 @@ from utils.language import (
 
 from utils.weather import create_weather_profile
 
+from utils.voice import listen_to_farmer
+from utils.ai_engine import farmguardian_ai_response
+
 import streamlit as st
 from PIL import Image
 
@@ -28,14 +31,12 @@ from utils.gemma_prompt import (
     build_farmguardian_prompt,
 )
 
-from utils.ai_engine import (
-    farmguardian_ai_response,
-)
+from utils.ai_engine import farmguardian_ai_response
 
 from utils.advisory import generate_advisory
 from utils.image_processor import process_crop_image
 
-
+from utils.weather import get_weather
 
 # -----------------------------
 # Page Configuration
@@ -446,357 +447,71 @@ tab1, tab2, tab3, tab4 = st.tabs(
 
 with tab1:
 
+    st.header("🌱 Crop Diagnosis")
 
-    st.header(
-        "🔍 Crop Diagnosis"
+
+    crop = st.selectbox(
+        "Select Crop",
+        crops
     )
 
 
-    col1, col2 = st.columns(2)
+    description = st.text_area(
+        "Describe the problem"
+    )
+
+
+    image = st.file_uploader(
+        "Upload Crop Image",
+        type=["jpg", "png", "jpeg"]
+    )
+
+
+    if st.button("🔍 Analyze Crop"):
+
+        result = farmguardian_ai_response(description)
+
+        st.write(result["analysis"])
 
 
 
-
-    with col1:
-
-        crop = st.text_input(
-            "Crop (optional)",
-
-            placeholder=
-            "Example: Maize, Tomato, Cassava"
-        )
-
-
-        st.subheader(
-            "🌦 Current Weather Condition"
-        )
-
-        temperature = st.slider(
-            "Temperature (°C)",
-            15,
-            45,
-            30,
-            key="temperature_slider"
-        )
-
-    with col2:
-
-        rainfall = st.selectbox(
-            "Rainfall Condition",
-            [
-                "Low",
-                "Moderate",
-                "High"
-            ],
-            key="rainfall_condition"
-        )
-
-        flood_risk = st.selectbox(
-            "Flood Risk",
-            [
-                "Low",
-                "Medium",
-                "High"
-            ]
-        )
-
-        drought_risk = st.selectbox(
-            "Drought Risk",
-            [
-                "Low",
-                "Medium",
-                "High"
-            ]
-        )
-
-        st.subheader(
-            "🎤 Voice Assistant"
-        )
-
-        voice_input = st.text_input(
-
-            "Voice transcript (future microphone input)",
-
-            placeholder=
-            "Example: My maize leaves are turning yellow"
-
-        )
-
-        description = st.text_area(
-
-            "Describe what you see on the crop",
-
-            placeholder=
-            """
-Example:
-
-My maize leaves are turning yellow
-and some leaves have holes.
-            """
-
-        )
-
-
-
-        uploaded_image = st.file_uploader(
-
-            "Upload crop image",
-
-            type=[
-                "jpg",
-                "jpeg",
-                "png"
-            ],
-
-            key="diagnosis_image"
-
-        )
-
-        if uploaded_image:
-            processed_image, image_info = process_crop_image(uploaded_image)
-
-            if processed_image:
-                st.image(
-                    processed_image,
-                    caption="Uploaded Crop Image",
-                    use_container_width=True,
-                )
-
-                st.success("📸 Image prepared for AI analysis")
-
-                # store image context for later use in analysis
-                st.session_state.image_context = image_info
-
-                with st.expander("Image Information"):
-                    st.write(image_info)
-            else:
-                st.error("Unable to process image")
-
-
+    # -------------------------
+    # Voice Assistant
+    # -------------------------
 
     st.divider()
 
+    st.subheader("🎤 Ask by Voice")
 
 
-    if st.button(
+    if "voice_question" not in st.session_state:
+        st.session_state.voice_question = ""
 
-        "🌱 Analyze Crop",
 
-        key="analyze_crop_button"
+    if st.button("🎙️ Record Question"):
 
-    ):
+        # Record the farmer's question, save it, and get an AI response
+        question = listen_to_farmer()
+        st.session_state.voice_question = question
+        answer = farmguardian_ai_response(question)
+        st.session_state.voice_answer = answer
 
 
-        if "farmer" not in st.session_state:
+if st.session_state.voice_question:
 
+    st.write("🗣️ Farmer asked:")
+    st.info(st.session_state.voice_question)
 
-            st.warning(
-                "Please login first."
-            )
 
-            st.stop()
+if "voice_answer" in st.session_state:
 
-
-
-        if not description:
-
-
-            st.warning(
-                "Please describe the crop problem."
-            )
-
-            st.stop()
-
-
-
-        farmer = st.session_state.farmer
-
-
-
-        # ==============================
-        # CREATE GEMMA READY PROMPT
-        # ==============================
-
-
-
-        climate_data = generate_advisory(
-
-            farmer["location"],
-
-            farmer.get(
-                "crops",
-                []
-            )
-
-        )
-
-        weather = create_weather_profile(
-            temperature,
-            rainfall,
-            flood_risk,
-            drought_risk
-        )
-
-        image_context = st.session_state.get("image_context")
-
-        if voice_input and not description:
-
-            description = voice_input
-
-        detected_language = detect_language(description)
-        translated_message = translate_to_english(description, detected_language)
-
-        prompt = build_farmguardian_prompt(
-            farmer,
-            crop,
-            translated_message,
-            climate_data,
-            weather,
-            image_context
-        )
-
-        ai_result = farmguardian_ai_response(
-            prompt
-        )
-
-        if ai_result:
-
-
-            st.success(
-
-                "🌱 FarmGuardian AI Analysis Complete"
-
-            )
-
-
-
-            st.subheader(
-
-                "🤖 Agricultural Assessment"
-
-            )
-
-
-            st.write(
-                ai_result["analysis"]
-            )
-
-            st.subheader(
-                "💡 Why FarmGuardian AI Thinks This"
-            )
-
-            st.write(
-                """The AI considers:
-
-🌱 Crop symptoms
-
-📸 Image features
-
-🌦 Weather conditions
-
-📍 Location climate risks
-
-Agricultural knowledge database
-"""
-            )
-
-            st.subheader(
-                "⚠️ Risk Level"
-            )
-
-            if "confidence" in ai_result:
-
-                st.metric(
-
-                    "🤖 AI Confidence",
-
-                    f"{ai_result['confidence']}%"
-
-                )
-
-            st.warning(
-
-                ai_result["risk"]
-
-            )
-
-
-
-            st.subheader(
-
-                "🌦 Climate Consideration"
-
-            )
-
-
-            st.write(
-
-                ai_result["climate_warning"]
-
-            )
-
-
-
-            st.subheader(
-
-                "✅ Recommended Actions"
-
-            )
-
-
-            for action in ai_result["recommendations"]:
-
-
-                st.write(
-
-                    "🔹",
-
-                    action
-
-                )
-
-
-
-            # Save AI result
-
-            save_diagnosis(
-
-                farmer["id"],
-
-                crop,
-
-                description,
-
-                ai_result
-
-            )
-
-
-
-            st.info(
-
-                """
-Gemma 4 integration point:
-
-This temporary AI engine will be
-replaced with Gemma 4 during the
-live hackathon.
-                """
-
-            )
-
-
-        else:
-
-
-            st.error(
-
-                "AI analysis failed."
-
-            )
-
-
+    st.write("🤖 FarmGuardian AI:")
+    st.success(
+        st.session_state.voice_answer["analysis"]
+    )
    
+if "voice_answer" not in st.session_state:
+    st.session_state.voice_answer = None
 
 # =====================================================
 # TAB 2 - FARM HISTORY
@@ -894,9 +609,11 @@ with tab3:
 
     if "farmer" in st.session_state:
 
-
         farmer = st.session_state.farmer
 
+        weather = get_weather(
+            farmer["location"]
+        )
 
         st.write(
             f"""
@@ -913,75 +630,106 @@ with tab3:
             """
         )
 
+st.subheader("🌍 Current Farm Climate")
 
 
-        if st.button(
-            "🌦 Generate Climate Advisory",
-            key="climate_advisory_button"
-        ):
+weather_col1, weather_col2, weather_col3, weather_col4 = st.columns(4)
 
 
-            advisory = generate_advisory(
+with weather_col1:
 
-                farmer["location"],
+    st.metric(
+        "🌡 Temperature",
+        weather["temperature"]
+    )
 
-                farmer.get(
-                    "crops",
-                    []
-                )
 
+with weather_col2:
+
+    st.metric(
+        "💧 Humidity",
+        weather["humidity"]
+    )
+
+
+with weather_col3:
+
+    st.metric(
+        "🌧 Rainfall",
+        weather["rainfall"]
+    )
+
+
+with weather_col4:
+
+    st.metric(
+        "☁ Condition",
+        weather["condition"]
+    )
+
+if st.button(
+    "🌦 Generate Climate Advisory",
+    key="climate_advisory_button"
+):
+
+    advisory = generate_advisory(
+
+        farmer["location"],
+
+        farmer.get(
+            "crops",
+            []
+        )
+
+    )
+
+
+    st.subheader(
+        "⚠️ Climate Risks"
+    )
+
+
+    for risk in advisory["risks"]:
+
+        st.warning(
+            risk
+        )
+
+
+
+    st.subheader(
+        "🌱 Crop Specific Risks"
+    )
+
+
+    for item in advisory["crop_advice"]:
+
+        st.write(
+            f"### {item['crop']}"
+        )
+
+
+        for risk in item["risks"]:
+
+            st.write(
+                "🔹",
+                risk
             )
 
 
-            st.subheader(
-                "⚠️ Climate Risks"
-            )
+
+    st.subheader(
+        "✅ Recommended Actions"
+    )
 
 
-            for risk in advisory["risks"]:
+    for action in advisory["recommendations"]:
 
-                st.warning(
-                    risk
-                )
-
-
-
-            st.subheader(
-                "🌱 Crop Specific Risks"
-            )
-
-
-            for item in advisory["crop_advice"]:
-
-                st.write(
-                    f"### {item['crop']}"
-                )
-
-
-                for risk in item["risks"]:
-
-                    st.write(
-                        "🔹",
-                        risk
-                    )
-
-
-
-            st.subheader(
-                "✅ Recommended Actions"
-            )
-
-
-            for action in advisory["recommendations"]:
-
-                st.success(
-                    action
-                )
-
+        st.success(
+            action
+        )
 
     else:
-
-
         st.warning(
             "Please login first."
         )

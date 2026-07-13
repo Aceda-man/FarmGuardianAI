@@ -1,41 +1,70 @@
-# =====================================================
-# FarmGuardian AI
-# Climate Input Module
-# SDG 11 & 13
-# =====================================================
+import requests
 
 
-def create_weather_profile(
-    temperature,
-    rainfall,
-    flood_risk,
-    drought_risk
-):
+def get_weather(location):
 
+    """
+    Gets current weather data.
+    """
 
-    weather = {
+    # Example coordinates
+    # Later we can make location -> coordinates automatically
 
+    coordinates = {
+        "Ilorin": {
+            "lat": 8.4966,
+            "lon": 4.5421
+        },
 
-        "temperature":
+        "Lagos": {
+            "lat": 6.5244,
+            "lon": 3.3792
+        },
 
-        temperature,
-
-
-        "rainfall":
-
-        rainfall,
-
-
-        "flood_risk":
-
-        flood_risk,
-
-
-        "drought_risk":
-
-        drought_risk
-
+        "Kwara": {
+            "lat": 8.9669,
+            "lon": 4.3874
+        }
     }
 
 
-    return weather
+    place = coordinates.get(
+        location,
+        coordinates["Ilorin"]
+    )
+
+
+    url = (
+        "https://api.open-meteo.com/v1/forecast"
+        f"?latitude={place['lat']}"
+        f"&longitude={place['lon']}"
+        "&current=temperature_2m,relative_humidity_2m,rain"
+    )
+
+
+    response = requests.get(url)
+
+    data = response.json()
+
+
+    current = data["current"]
+
+
+    return {
+
+        "temperature":
+        f"{current['temperature_2m']}°C",
+
+
+        "humidity":
+        f"{current['relative_humidity_2m']}%",
+
+
+        "rainfall":
+        f"{current['rain']} mm",
+
+
+        "condition":
+        "Current weather"
+
+    }
