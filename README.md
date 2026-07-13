@@ -1,196 +1,219 @@
 # 🌱 FarmGuardian AI
 
-## Offline AI Agricultural Assistant for Smallholder Farmers
+## AI-Powered Agricultural Intelligence Assistant for Nigerian Smallholder Farmers
 
-FarmGuardian AI is an intelligent agricultural assistant designed to help Nigerian smallholder farmers detect crop problems, understand climate risks, and receive practical farming recommendations.
 
-The project combines agricultural knowledge, AI preparation, climate awareness, and farmer digital records to provide accessible agricultural support even in areas with limited internet access.
+FarmGuardian AI is an AI-driven agricultural assistant designed to help smallholder farmers detect crop problems, receive farming recommendations, understand climate risks, and maintain digital farm records.
 
-Built for the **Google Gemma Hackathon - Track 3: Safe Communities (SDG 11 & SDG 13)**.
+By combining **artificial intelligence, offline speech recognition, agricultural knowledge, and climate intelligence**, FarmGuardian AI aims to make expert farming support more accessible to farmers, especially those in low-connectivity environments.
 
 ---
 
 # 🌍 The Problem
 
-Millions of smallholder farmers face challenges such as:
+Agriculture remains one of the most important sectors in Nigeria, supporting millions of livelihoods. However, many smallholder farmers face challenges such as:
 
-- Limited access to agricultural extension officers
-- Delayed detection of pests and diseases
-- Increasing climate uncertainty
-- Poor access to reliable farming information
-- Limited digital tools for farm decision making
+- Late detection of crop diseases
+- Limited access to agricultural experts
+- Unpredictable weather conditions
+- Lack of digital farm records
+- Barriers caused by internet availability and technical literacy
 
-These challenges contribute to:
+A farmer may notice that a crop is unhealthy but may not know:
 
-- Crop losses
-- Reduced farmer income
-- Food insecurity
-- Climate vulnerability
+- What disease is affecting it
+- How serious the problem is
+- What action should be taken
+- How weather conditions may affect recovery
 
----
-
-# 💡 Our Solution: FarmGuardian AI
-
-FarmGuardian AI provides farmers with an intelligent farming assistant that can:
-
-🌱 Diagnose crop problems
-
-📸 Analyze crop images
-
-🌦 Consider climate conditions
-
-📊 Store farm history
-
-🗣 Support future local language interaction
-
-🤖 Prepare for Gemma multimodal AI integration
+This delay can lead to significant crop losses and reduced income.
 
 ---
 
-# 🚀 Current Features
+# 💡 Our Solution
 
-## 👨🏾‍🌾 Farmer Authentication
+FarmGuardian AI provides farmers with an intelligent agricultural companion that helps them make better farming decisions.
 
-Farmers can:
+The system allows farmers to:
 
-- Create personal accounts
-- Secure their profiles with passwords
-- Store farm information
-- Maintain private diagnosis history
+🌱 Diagnose crop problems  
+🎤 Ask farming questions using voice  
+🌦 Receive climate-based farming recommendations  
+📊 Maintain digital farm history  
+🤖 Get AI-powered agricultural guidance  
 
-Each farmer only sees their own records.
+The goal is simple:
+
+> Make agricultural intelligence accessible to every farmer, regardless of technical background or connectivity limitations.
 
 ---
 
-## 🌱 Crop Diagnosis System
+# ✨ Key Features
 
-Farmers can provide:
+## 🌱 AI Crop Diagnosis
 
-- Crop type
-- Crop symptoms
-- Crop images
-- Weather conditions
+Farmers can describe crop problems and upload crop images for intelligent analysis.
 
-The system prepares AI-ready agricultural assessments.
+The system helps identify:
+
+- Possible diseases
+- Pest-related problems
+- Environmental stress
+- Recommended actions
+
+Future versions will use Gemma multimodal intelligence for image-based crop understanding.
+
+---
+
+## 🎤 Offline Voice Assistant
+
+Many farmers may not be comfortable typing questions.
+
+FarmGuardian AI includes offline speech recognition using Vosk technology.
+
+Farmers can ask questions naturally:
 
 Example:
 
-Input:
+> "Why are my maize leaves turning yellow?"
 
-> "My maize leaves are turning yellow and have holes"
+The system converts speech into text and provides agricultural guidance.
 
-Output:
-
-- Possible causes
-- Risk level
-- Climate consideration
-- Recommended actions
+This improves accessibility for farmers with limited digital experience.
 
 ---
 
-## 📸 Image Processing
+## 🌦 Climate Intelligence
 
-FarmGuardian AI currently prepares uploaded crop images for AI analysis.
+Weather conditions strongly influence crop health.
 
-Future Gemma integration will enable:
+FarmGuardian AI connects climate information with agricultural decisions.
 
-- Plant disease recognition
-- Pest identification
-- Visual crop assessment
-
----
-
-## 🌦 Climate Risk Advisory
-
-FarmGuardian AI considers climate factors:
+The system considers factors such as:
 
 - Temperature
-- Rainfall conditions
-- Flood risk
-- Drought risk
+- Rainfall
+- Humidity
+- Environmental conditions
+
+Example:
+
+High humidity + tomato farming:
+
+→ Increased fungal disease risk
+
+The AI can recommend preventive actions.
+
+---
+
+## 📊 Digital Farm Records
+
+Farmers can maintain records of:
+
+- Previous diagnoses
+- Crop problems
+- Recommendations received
+- Farming history
+
+This allows farmers to track patterns and improve future decisions.
+
+---
+
+## 👨🏾‍🌾 Farmer Personalization
+
+Each farmer has a personalized profile containing:
+
+- Farm information
+- Preferred crops
+- Farming experience
 - Location
 
-The system provides climate-aware recommendations.
-
-Aligned with:
-
-**SDG 13: Climate Action**
+Recommendations become more relevant to individual farming conditions.
 
 ---
 
-## 📊 Digital Farm History
+# 🤖 Artificial Intelligence Architecture
 
-Farmers can:
+FarmGuardian AI uses a modular AI architecture.
+             Farmer
 
-- Save previous diagnoses
-- Review past crop problems
-- Track farm decisions
+                |
+    -------------------------
+    |                       |
+  Voice                  Image/Text
+    |                       |
+    ↓                       ↓
 
-Each farmer has a private history.
+Offline Speech          AI Engine
+Recognition             (Gemma Ready)
+
+    |                       |
+    -------------------------
+                |
+                ↓
+
+      Agricultural Intelligence
+
+                |
+    -------------------------
+    |          |            |
+
+ Diagnosis   Climate     Recommendations
+
+                |
+                ↓
+
+          Farmer Action
+
+          
+---
+
+# 🧠 Gemma Integration
+
+FarmGuardian AI is designed for integration with Google's Gemma models.
+
+Gemma will provide:
+
+- Agricultural reasoning
+- Crop disease interpretation
+- Image understanding
+- Context-aware recommendations
+- Natural language interaction
+
+The architecture allows the prototype AI engine to be replaced with Gemma without changing the application interface.
 
 ---
 
-# 🤖 Gemma 4 Integration Plan
+# 📴 Offline-First Approach
 
-The current version contains the complete AI preparation layer.
+Connectivity remains a major challenge in rural communities.
 
-During final integration, Gemma will replace the temporary reasoning engine.
+FarmGuardian AI focuses on accessibility through:
 
-Architecture:
+✅ Offline voice recognition  
+✅ Lightweight architecture  
+✅ Local farmer profiles  
+✅ Future offline AI deployment  
 
-Farmer Input
-  |
-  ↓
- Crop Image + Symptoms + Climate Data
-    |
-    ↓
-FarmGuardian Prompt Builder
-
-  |
-  ↓
-
-Gemma Multimodal Model
-
-  |
-  ↓
-
-Agricultural Recommendation
-
-  |
-  ↓
-
-Farmer Friendly Response
-
-
-Gemma will enable:
-
-- Image-based crop diagnosis
-- Better reasoning
-- Multimodal understanding
-- Local agricultural intelligence
+The long-term vision is an agricultural assistant that can operate effectively even in areas with limited internet access.
 
 ---
 
-# 🌍 SDG Alignment
+# 🌍 Sustainable Development Goal Alignment
 
-## SDG 11 - Sustainable Communities
+## SDG 4 — Quality Education
 
-FarmGuardian AI supports safer and more resilient communities by improving:
+FarmGuardian AI supports agricultural education by providing farmers with accessible knowledge and decision-support tools.
 
-- Access to agricultural information
-- Farmer decision making
-- Rural digital inclusion
+Instead of depending only on physical agricultural extension services, farmers can access learning and guidance through AI.
 
----
+## SDG 11 — Sustainable Communities
 
-## SDG 13 - Climate Action
+By supporting farmers and improving agricultural decision-making, the platform contributes to stronger and more resilient communities.
 
-FarmGuardian AI helps farmers adapt to climate challenges through:
+## SDG 13 — Climate Action
 
-- Climate-aware recommendations
-- Weather risk consideration
-- Drought and flood awareness
-- Sustainable farming decisions
+The climate intelligence component helps farmers adapt to changing environmental conditions.
 
 ---
 
@@ -204,70 +227,75 @@ FarmGuardian AI helps farmers adapt to climate challenges through:
 
 - Python
 
-## AI Preparation
+## Artificial Intelligence
 
-- Gemma multimodal architecture
-- Prompt engineering
-- AI response processing
+- Google Gemma (Integration)
+- Prototype Agricultural Reasoning Engine
 
-## Data Storage
+## Speech Recognition
 
-- JSON-based farmer records
-- Diagnosis history storage
+- Vosk Offline Speech Recognition
 
-## Image Processing
+## Audio Processing
 
-- Pillow (PIL)
+- SoundDevice
+- SciPy
 
-## Audio
-Download Vosk model and place inside models/
+## Data Management
+
+- Local farm records database
+
+## Environment Management
+
+- Python Virtual Environment
+
 ---
 
 # 📂 Project Structure
 
-
 FarmGuardianAI/
 
 │
-├── app.py
-│
+├── app.py # Streamlit application
+
 ├── utils/
-│ │
-│ ├── auth.py
-│ ├── storage.py
-│ ├── helpers.py
-│ ├── advisory.py
-│ ├── weather.py
-│ ├── language.py
-│ ├── image_processor.py
-│ ├── gemma_prompt.py
-│ └── ai_engine.py
-      weather.py
+
+│ ├── ai_engine.py # AI decision engine
+
+│ ├── voice.py # Offline speech recognition
+
+│ ├── weather.py # Climate intelligence
+
+│ ├── auth.py # Farmer authentication
+
+│ └── history.py # Farm records
+
 │
-├── data/
-│ ├── farmers.json
-│ └── history.json
+├── models/
+
+│ └── Vosk speech model
+
 │
 ├── requirements.txt
-│
-└── README.md
 
+├── README.md
+
+└── .gitignore
 
 ---
 
-# ⚙️ Installation
+# 🚀 Installation
 
-Clone repository:
+Clone the repository:
 
 ```bash
+git clone https://github.com/Aceda-man/FarmGuardianAI.git
 
-git https://github.com/Aceda-man/FarmGuardianAI.git
-
-Enter project folder:
+Navigate into the project:
 
 cd FarmGuardianAI
 
-Create virtual environment:
+Create a virtual environment:
 
 python -m venv venv
 
@@ -285,19 +313,25 @@ Run application:
 
 streamlit run app.py
 
+🎯 Future Improvements
 
-🔮 Future Improvements
-Gemma 4 multimodal integration
-Voice assistant for farmers
-Local language support
-Offline mobile deployment
-Real weather API integration
-Satellite-based farm monitoring
-Agricultural expert knowledge database
-👨🏾‍🌾 Vision
+Future versions will include:
 
-FarmGuardian AI aims to become a digital agricultural companion for farmers by combining artificial intelligence and climate intelligence to create safer, smarter, and more sustainable farming communities.
+🌍 Local language support (Yoruba, Hausa, Igbo)
+📱 Mobile application deployment
+🛰 Satellite crop monitoring
+🌱 More crop disease datasets
+📴 Fully offline AI model deployment
+🤖 Advanced Gemma multimodal diagnosis
+🧑🏾‍🌾 Agricultural extension expert integration
+👥 Impact Vision
 
-Built for the Gemma Hackathon
+FarmGuardian AI aims to become a digital agricultural companion that connects farmers with reliable knowledge anytime and anywhere.
 
-FarmGuardian AI
+By combining AI with agricultural expertise, we can help farmers make faster, smarter, and more sustainable decisions.
+
+Built For
+
+🌱 Gemma AI Hackathon
+
+Built with the vision of empowering Nigerian smallholder farmers through accessible artificial intelligence.
