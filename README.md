@@ -242,6 +242,7 @@ FarmGuardianAI/
 │ ├── image_processor.py
 │ ├── gemma_prompt.py
 │ └── ai_engine.py
+      weather.py
 │
 ├── data/
 │ ├── farmers.json
